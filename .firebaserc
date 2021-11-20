@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "rust-react-4cc5a"
+  },
+  "targets": {
+    "rust-react-4cc5a": {
+      "hosting": {
+        "priceftx": [
+          "priceftx"
+        ]
+      }
+    }
+  }
+}
