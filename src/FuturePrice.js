@@ -33,7 +33,7 @@ class FuturePrice {
       const { result } =
         process.env.NODE_ENV === 'development'
           ? require('./data.json')
-          : await fetch('https://ftx.com/api/futures').then((res) =>
+          : await fetch('https://ftx.phutx.top').then((res) =>
               res.json()
             );
       const newTick = Date.now();

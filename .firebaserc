@@ -1,9 +1,9 @@
 {
   "projects": {
-    "default": "rust-react-4cc5a"
+    "default": "vntrade-4fc9d"
   },
   "targets": {
-    "rust-react-4cc5a": {
+    "vntrade-4fc9d": {
       "hosting": {
         "priceftx": [
           "priceftx"
