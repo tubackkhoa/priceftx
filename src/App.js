@@ -27,7 +27,7 @@ const RenderName = ({name}) => {
 const RenderUp = ({up}) => {
   return (
     <Typography.Text>
-      {up.join(' ')}
+      {up ? up.join(' ') : '...'}
     </Typography.Text>
   );
 };
@@ -52,9 +52,21 @@ const columns = [
   },
   {
     title: '5s',
-    dataIndex: 'up',
-    key: 'up',
-    render: (up) => <RenderUp up={up}/>
+    dataIndex: 'up5s',
+    key: 'up5s',
+    render: (up5s) => <RenderUp up={up5s}/>
+  },
+  {
+    title: '1m',
+    dataIndex: 'up1m',
+    key: 'up1m',
+    render: (up1m) => <RenderUp up={up1m}/>
+  },
+  {
+    title: '5m',
+    dataIndex: 'up5m',
+    key: 'up5m',
+    render: (up5m) => <RenderUp up={up5m}/>
   },
   {
     title: 'Change 5m',
@@ -90,8 +102,11 @@ const App = () => {
           .sort((a, b) => b.change1h - a.change1h)
       );
     });
+    futurePrice.start5s((data) => {});
+    futurePrice.start1m((data) => {});
+    futurePrice.start5m((data) => {});
   }, []);
-  console.log(data);
+
   return (
     <Space>
       <Table rowKey="name" dataSource={data} columns={columns}/>
