@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Table, Typography, Space } from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Table, Typography, Space, Anchor} from 'antd';
 import FuturePrice from './FuturePrice';
 import './App.less';
+var mapping = require('./mapping.json');
 
-const RenderChange = ({ change }) => {
+const COIN_MARKETCAP = 'https://coinmarketcap.com/currencies/';
+const {Link} = Anchor;
+
+const RenderChange = ({change}) => {
   const value = (change * 100).toFixed(2);
   return (
     <Typography.Text type={value > 0 ? 'success' : 'danger'}>
@@ -12,38 +16,66 @@ const RenderChange = ({ change }) => {
   );
 };
 
+const RenderName = ({name}) => {
+  return (
+    <Anchor>
+      <Link href={COIN_MARKETCAP + (mapping[name] ? mapping[name] : name)} title={name} target="_blank"/>
+    </Anchor>
+  );
+};
+
+const RenderUp = ({up}) => {
+  return (
+    <Typography.Text>
+      {up.join(' ')}
+    </Typography.Text>
+  );
+};
+
 const columns = [
   {
     title: 'Ticker',
     dataIndex: 'name',
-    key: 'name'
+    key: 'name',
+  },
+  {
+    title: 'CoinMarketCap',
+    dataIndex: 'underlying',
+    key: 'underlying',
+    render: (underlying) => <RenderName name={underlying}/>
   },
   {
     title: 'Price',
     dataIndex: 'marginPrice',
     key: 'marginPrice',
-    render: (price) => `${price}$`
+    render: (price) => `${price.toFixed(4)}$`
+  },
+  {
+    title: '5s',
+    dataIndex: 'up',
+    key: 'up',
+    render: (up) => <RenderUp up={up}/>
   },
   {
     title: 'Change 5m',
     dataIndex: 'change',
     key: 'change',
     sorter: (a, b) => a.change - b.change,
-    render: (change) => <RenderChange change={change} />
+    render: (change) => <RenderChange change={change}/>
   },
   {
     title: 'Change 1h',
     dataIndex: 'change1h',
     key: 'change1h',
     sorter: (a, b) => a.change1h - b.change1h,
-    render: (change) => <RenderChange change={change} />
+    render: (change) => <RenderChange change={change}/>
   },
   {
     title: 'Change 24h',
     dataIndex: 'change24h',
     key: 'change24h',
     sorter: (a, b) => a.change24h - b.change24h,
-    render: (change) => <RenderChange change={change} />
+    render: (change) => <RenderChange change={change}/>
   }
 ];
 
@@ -59,10 +91,10 @@ const App = () => {
       );
     });
   }, []);
-
+  console.log(data);
   return (
     <Space>
-      <Table rowKey="name" dataSource={data} columns={columns} />
+      <Table rowKey="name" dataSource={data} columns={columns}/>
     </Space>
   );
 };
