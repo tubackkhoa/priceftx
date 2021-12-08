@@ -16,6 +16,15 @@ const RenderChange = ({change}) => {
   );
 };
 
+const RenderChange5m = ({change}) => {
+  const value = (100 - (change * 100)).toFixed(2);
+  return (
+    <Typography.Text type={value > 0 ? 'success' : 'danger'}>
+      {value} %
+    </Typography.Text>
+  );
+};
+
 const RenderName = ({name}) => {
   return (
     <Anchor>
@@ -50,6 +59,12 @@ const columns = [
     key: 'marginPrice',
     render: (price) => `${price.toFixed(4)}$`
   },
+  // {
+  //   title: 'Referral Price',
+  //   dataIndex: 'prevMarginPrice',
+  //   key: 'prevMarginPrice',
+  //   render: (prevMarginPrice) => `${prevMarginPrice.toFixed(4)}$`
+  // },
   {
     title: '5s',
     dataIndex: 'up5s',
@@ -73,7 +88,7 @@ const columns = [
     dataIndex: 'change',
     key: 'change',
     sorter: (a, b) => a.change - b.change,
-    render: (change) => <RenderChange change={change}/>
+    render: (change) => <RenderChange5m change={change}/>
   },
   {
     title: 'Change 1h',

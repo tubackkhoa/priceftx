@@ -44,7 +44,7 @@ class FuturePrice {
       for (let item of newData) {
         this.data[item.name].marginPrice = item.marginPrice;
         this.data[item.name].change =
-          item.marginPrice - this.data[item.name].prevMarginPrice;
+          this.data[item.name].prevMarginPrice / item.marginPrice;
       }
     }
   }
